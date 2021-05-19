@@ -130,7 +130,6 @@ export default {
         email: "",
         username: "",
         password: "",
-        balls: [""],
         role: "",
       };
     },
@@ -143,7 +142,7 @@ export default {
         username: "",
         password: "",
         balls: [""],
-        role: "",
+        role: ""
       };
     },
     writeBallData(userId) {
@@ -169,7 +168,7 @@ export default {
         code: "",
       };
     },
-  },
+  }
 };
 </script>
 

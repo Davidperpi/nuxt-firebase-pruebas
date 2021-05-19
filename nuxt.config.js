@@ -19,7 +19,7 @@ export default {
     css: [],
 
     // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-    plugins: [],
+    plugins: ['@/plugins/firebase'],
 
     // Auto import components: https://go.nuxtjs.dev/config-components
     components: true,
@@ -33,11 +33,34 @@ export default {
         'bootstrap-vue/nuxt',
         // https://go.nuxtjs.dev/axios
         '@nuxtjs/axios',
+        '@nuxtjs/proxy'
     ],
 
     // Axios module configuration: https://go.nuxtjs.dev/config-axios
-    axios: {},
+    axios: {
+        proxy: true
+    },
 
     // Build Configuration: https://go.nuxtjs.dev/config-build
-    build: {}
+    build: {
+        extend(config, { isDev, isClient }) {
+
+            config.node = {
+                fs: 'empty'
+            }
+
+            // ....
+        },
+        babel: {
+            plugins: [
+                ['@babel/plugin-proposal-private-methods', { loose: true }]
+            ]
+        }
+    },
+
+    serverMiddleware: { '/api': '@middleware/api' },
+
+    proxy: {
+        '/api/': { target: 'http://localhost:3000/api/', pathRewrite: { '^/api/': '' }, changeOrigin: true }
+    }
 }
