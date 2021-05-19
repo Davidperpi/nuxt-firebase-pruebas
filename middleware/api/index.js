@@ -7,8 +7,10 @@ app.use(express.urlencoded({
     extended: true
 }))
 
+const balls = require('./balls')
 const users = require('./users')
 app.use(users)
+app.use(balls)
 
 if (require.main === module) {
     const port = 3001
